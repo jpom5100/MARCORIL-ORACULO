@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuDestino - Calculadora de Número de Vida</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0f1e 0%, #0d1a2a 100%);
+            font-family: 'Georgia', 'Times New Roman', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(20, 30, 45, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2);
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        /* Espacio para la imagen del druida */
+        .druid-image {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .druid-image img {
+            max-width: 180px;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid #d4af37;
+        }
+
+        /* Placeholder si no tienes imagen */
+        .druid-placeholder {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #2a3a4a, #1a2a3a);
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #d4af37;
+            font-size: 60px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d4af37;
+            font-size: 28px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(212,175,55,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aac8e0;
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* Campos de fecha */
+        .date-fields {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .date-field {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .date-field label {
+            display: block;
+            color: #d4af37;
+            font-size: 14px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .date-field input {
+            width: 100%;
+            padding: 15px 10px;
+            font-size: 24px;
+            text-align: center;
+            background: rgba(10, 20, 35, 0.9);
+            border: 1px solid #d4af37;
+            border-radius: 15px;
+            color: white;
+            font-family: monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .date-field input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(212,175,55,0.5);
+            border-color: #ffd700;
+        }
+
+        .date-field input::placeholder {
+            color: #4a6075;
+            font-size: 14px;
+        }
+
+        /* Resultado */
+        .result-container {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+
+        .result-label {
+            color: #aac8e0;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .result-number {
+            font-size: 72px;
+            font-weight: bold;
+            color: #d4af37;
+            text-shadow: 0 0 20px rgba(212,175,55,0.5);
+            line-height: 1;
+        }
+
+        .result-name {
+            font-size: 20px;
+            color: white;
+            margin-top: 10px;
+        }
+
+        /* Botón de compra */
+        .buy-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #d4af37, #b8922a);
+            color: #0a0f1e;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+        }
+
+        .info-text {
+            text-align: center;
+            color: #6a8aaa;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .note {
+            font-size: 11px;
+            color: #4a6075;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Espacio para tu imagen de druida -->
+    <div class="druid-image">
+        <!-- CAMBIA ESTO POR TU IMAGEN -->
+        <div class="druid-placeholder">🧙‍♂️</div>
+        <!-- Si tienes imagen, usa: <img src="URL_DE_TU_IMAGEN.jpg" alt="Druida"> -->
+    </div>
+
+    <h1>✦ TUDESTINO ✦</h1>
+    <div class="subtitle">¿Qué número de vida eres?</div>
+
+    <!-- Campos de fecha en orden: DÍA - MES - AÑO -->
+    <div class="date-fields">
+        <div class="date-field">
+            <label>DÍA</label>
+            <input type="text" id="day" placeholder="DD" maxlength="2" inputmode="numeric">
+        </div>
+        <div class="date-field">
+            <label>MES</label>
+            <input type="text" id="month" placeholder="MM" maxlength="2" inputmode="numeric">
+        </div>
+        <div class="date-field">
+            <label>AÑO</label>
+            <input type="text" id="year" placeholder="YYYY" maxlength="4" inputmode="numeric">
+        </div>
+    </div>
+
+    <!-- Resultado automático -->
+    <div class="result-container">
+        <div class="result-label">TU NÚMERO DE VIDA ES</div>
+        <div class="result-number" id="resultNumber">—</div>
+        <div class="result-name" id="resultName">Introduce tu fecha</div>
+    </div>
+
+    <!-- Botón de compra (enlace a Gumroad) -->
+    <a href="#" id="buyLink" class="buy-button" target="_blank">
+        🔮 ESCUCHA TU AUDIO POR 2€ 🔮
+    </a>
+    
+    <div class="info-text">
+        Tu número se calcula automáticamente al escribir tu fecha completa
+    </div>
+    <div class="note">
+        Números maestros 11, 22, 33 se conservan
+    </div>
+</div>
+
+<script>
+    // Función para reducir un número a dígito simple o número maestro
+    function reduceToMaster(number) {
+        if (number === 11 || number === 22 || number === 33) {
+            return number;
+        }
+        while (number > 9) {
+            let sum = 0;
+            number.toString().split('').forEach(digit => {
+                sum += parseInt(digit);
+            });
+            number = sum;
+        }
+        return number;
+    }
+
+    // Función para reducir una fecha (día, mes o año) respetando maestros
+    function reduceDatePart(part) {
+        if (part === 11 || part === 22 || part === 33) {
+            return part;
+        }
+        return reduceToMaster(part);
+    }
+
+    // Función principal para calcular el número de vida
+    function calculateLifePath(day, month, year) {
+        // Reducir cada componente por separado (respetando maestros)
+        let reducedDay = reduceDatePart(day);
+        let reducedMonth = reduceDatePart(month);
+        
+        // Para el año, reducir a dígito simple (el año no puede ser 11,22,33 directamente)
+        let reducedYear = reduceToMaster(year);
+        
+        // Sumar los tres componentes
+        let sum = reducedDay + reducedMonth + reducedYear;
+        
+        // Reducir el resultado final respetando números maestros
+        let finalNumber = reduceToMaster(sum);
+        
+        return finalNumber;
+    }
+
+    // Nombres de cada número
+    const numberNames = {
+        1: "El Iniciador",
+        2: "El Conciliador",
+        3: "El Comunicador",
+        4: "El Constructor",
+        5: "El Aventurero",
+        6: "El Cuidador",
+        7: "El Buscador",
+        8: "El Realizador",
+        9: "El Humanitario",
+        11: "El Maestro Inspirador",
+        22: "El Maestro Constructor",
+        33: "El Maestro Sanador"
+    };
+
+    // Obtener elementos del DOM
+    const dayInput = document.getElementById('day');
+    const monthInput = document.getElementById('month');
+    const yearInput = document.getElementById('year');
+    const resultNumberSpan = document.getElementById('resultNumber');
+    const resultNameSpan = document.getElementById('resultName');
+
+    // Función que actualiza el resultado automáticamente
+    function updateResult() {
+        let day = parseInt(dayInput.value);
+        let month = parseInt(monthInput.value);
+        let year = parseInt(yearInput.value);
+        
+        // Validar que los campos sean números válidos
+        if (isNaN(day) || isNaN(month) || isNaN(year)) {
+            resultNumberSpan.textContent = "—";
+            resultNameSpan.textContent = "Introduce tu fecha completa";
+            return;
+        }
+        
+        // Validaciones básicas
+        if (day < 1 || day > 31) {
+            resultNumberSpan.textContent = "?";
+            resultNameSpan.textContent = "Día inválido (1-31)";
+            return;
+        }
+        
+        if (month < 1 || month > 12) {
+            resultNumberSpan.textContent = "?";
+            resultNameSpan.textContent = "Mes inválido (1-12)";
+            return;
+        }
+        
+        if (year < 1000 || year > 2100) {
+            resultNumberSpan.textContent = "?";
+            resultNameSpan.textContent = "Año inválido (1000-2100)";
+            return;
+        }
+        
+        // Validación de días por mes (básica)
+        const daysInMonth = new Date(year, month, 0).getDate();
+        if (day > daysInMonth) {
+            resultNumberSpan.textContent = "?";
+            resultNameSpan.textContent = `El mes ${month} solo tiene ${daysInMonth} días`;
+            return;
+        }
+        
+        // Calcular número de vida
+        const lifeNumber = calculateLifePath(day, month, year);
+        
+        // Mostrar resultado
+        resultNumberSpan.textContent = lifeNumber;
+        resultNameSpan.textContent = numberNames[lifeNumber] || "Destino único";
+    }
+
+    // Añadir eventos a los campos
+    dayInput.addEventListener('input', updateResult);
+    monthInput.addEventListener('input', updateResult);
+    yearInput.addEventListener('input', updateResult);
+
+    // Limitar a solo números
+    function onlyNumbers(input) {
+        input.value = input.value.replace(/[^0-9]/g, '');
+    }
+    
+    dayInput.addEventListener('input', () => onlyNumbers(dayInput));
+    monthInput.addEventListener('input', () => onlyNumbers(monthInput));
+    yearInput.addEventListener('input', () => onlyNumbers(yearInput));
+    
+    // Avanzar al siguiente campo automáticamente
+    dayInput.addEventListener('input', function() {
+        if (this.value.length === 2) monthInput.focus();
+    });
+    
+    monthInput.addEventListener('input', function() {
+        if (this.value.length === 2) yearInput.focus();
+    });
+</script>
+
+</body>
+</html>
