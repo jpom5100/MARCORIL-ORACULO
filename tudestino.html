@@ -22,30 +22,21 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
-            background: rgba(20, 30, 45, 0.8);
+            background: rgba(20, 30, 45, 0.85);
             backdrop-filter: blur(10px);
             border-radius: 30px;
             padding: 40px 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2);
-            border: 1px solid rgba(255,215,0,0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.2);
+            border: 1px solid rgba(212,175,55,0.3);
         }
 
-        /* Espacio para la imagen del druida */
         .druid-image {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .druid-image img {
-            max-width: 180px;
-            border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 2px solid #d4af37;
-        }
-
-        /* Placeholder si no tienes imagen */
         .druid-placeholder {
             width: 150px;
             height: 150px;
@@ -76,7 +67,6 @@
             font-style: italic;
         }
 
-        /* Campos de fecha */
         .date-fields {
             display: flex;
             gap: 15px;
@@ -124,7 +114,6 @@
             font-size: 14px;
         }
 
-        /* Resultado */
         .result-container {
             text-align: center;
             padding: 25px;
@@ -155,7 +144,25 @@
             margin-top: 10px;
         }
 
-        /* Botón de compra */
+        .audio-container {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            display: none;
+        }
+
+        .audio-container.show {
+            display: block;
+        }
+
+        .audio-title {
+            color: #d4af37;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
         .buy-button {
             display: block;
             width: 100%;
@@ -193,22 +200,25 @@
             text-align: center;
             margin-top: 15px;
         }
+
+        iframe {
+            width: 100%;
+            height: 120px;
+            border-radius: 15px;
+            border: none;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Espacio para tu imagen de druida -->
     <div class="druid-image">
-        <!-- CAMBIA ESTO POR TU IMAGEN -->
         <div class="druid-placeholder">🧙‍♂️</div>
-        <!-- Si tienes imagen, usa: <img src="URL_DE_TU_IMAGEN.jpg" alt="Druida"> -->
     </div>
 
     <h1>✦ TUDESTINO ✦</h1>
     <div class="subtitle">¿Qué número de vida eres?</div>
 
-    <!-- Campos de fecha en orden: DÍA - MES - AÑO -->
     <div class="date-fields">
         <div class="date-field">
             <label>DÍA</label>
@@ -224,16 +234,19 @@
         </div>
     </div>
 
-    <!-- Resultado automático -->
     <div class="result-container">
         <div class="result-label">TU NÚMERO DE VIDA ES</div>
         <div class="result-number" id="resultNumber">—</div>
         <div class="result-name" id="resultName">Introduce tu fecha</div>
     </div>
 
-    <!-- Botón de compra (enlace a Gumroad) -->
+    <div id="audioContainer" class="audio-container">
+        <div class="audio-title">🔮 ESCUCHA TU AUDIO 🔮</div>
+        <div id="playerFrame"></div>
+    </div>
+
     <a href="#" id="buyLink" class="buy-button" target="_blank">
-        🔮 ESCUCHA TU AUDIO POR 2€ 🔮
+        🔮 COMPRA VERSIÓN PAREJA POR 2€ 🔮
     </a>
     
     <div class="info-text">
@@ -245,7 +258,47 @@
 </div>
 
 <script>
-    // Función para reducir un número a dígito simple o número maestro
+    const audioLinks = {
+        1: "https://soundcloud.com/jaume-674558592/1x-1",
+        2: "https://soundcloud.com/jaume-674558592/2x-2",
+        3: "https://soundcloud.com/jaume-674558592/3x-3",
+        4: "https://soundcloud.com/jaume-674558592/4x-4",
+        5: "https://soundcloud.com/jaume-674558592/5x-5",
+        6: "https://soundcloud.com/jaume-674558592/6x-6",
+        7: "https://soundcloud.com/jaume-674558592/7x-7",
+        8: "https://soundcloud.com/jaume-674558592/8x-8",
+        9: "https://soundcloud.com/jaume-674558592/9x-9"
+    };
+
+    const gumroadLink = "#";
+
+    const numberNames = {
+        1: "El Iniciador",
+        2: "El Conciliador",
+        3: "El Comunicador",
+        4: "El Constructor",
+        5: "El Aventurero",
+        6: "El Cuidador",
+        7: "El Buscador",
+        8: "El Realizador",
+        9: "El Humanitario"
+    };
+
+    const dayInput = document.getElementById('day');
+    const monthInput = document.getElementById('month');
+    const yearInput = document.getElementById('year');
+    const resultNumberSpan = document.getElementById('resultNumber');
+    const resultNameSpan = document.getElementById('resultName');
+    const audioContainer = document.getElementById('audioContainer');
+    const playerFrame = document.getElementById('playerFrame');
+    const buyLink = document.getElementById('buyLink');
+
+    buyLink.href = gumroadLink;
+
+    function onlyNumbers(input) {
+        input.value = input.value.replace(/[^0-9]/g, '');
+    }
+
     function reduceToMaster(number) {
         if (number === 11 || number === 22 || number === 33) {
             return number;
@@ -260,7 +313,6 @@
         return number;
     }
 
-    // Función para reducir una fecha (día, mes o año) respetando maestros
     function reduceDatePart(part) {
         if (part === 11 || part === 22 || part === 33) {
             return part;
@@ -268,110 +320,79 @@
         return reduceToMaster(part);
     }
 
-    // Función principal para calcular el número de vida
     function calculateLifePath(day, month, year) {
-        // Reducir cada componente por separado (respetando maestros)
         let reducedDay = reduceDatePart(day);
         let reducedMonth = reduceDatePart(month);
-        
-        // Para el año, reducir a dígito simple (el año no puede ser 11,22,33 directamente)
         let reducedYear = reduceToMaster(year);
-        
-        // Sumar los tres componentes
         let sum = reducedDay + reducedMonth + reducedYear;
-        
-        // Reducir el resultado final respetando números maestros
         let finalNumber = reduceToMaster(sum);
-        
+        if (finalNumber > 9) finalNumber = reduceToMaster(finalNumber);
         return finalNumber;
     }
 
-    // Nombres de cada número
-    const numberNames = {
-        1: "El Iniciador",
-        2: "El Conciliador",
-        3: "El Comunicador",
-        4: "El Constructor",
-        5: "El Aventurero",
-        6: "El Cuidador",
-        7: "El Buscador",
-        8: "El Realizador",
-        9: "El Humanitario",
-        11: "El Maestro Inspirador",
-        22: "El Maestro Constructor",
-        33: "El Maestro Sanador"
-    };
-
-    // Obtener elementos del DOM
-    const dayInput = document.getElementById('day');
-    const monthInput = document.getElementById('month');
-    const yearInput = document.getElementById('year');
-    const resultNumberSpan = document.getElementById('resultNumber');
-    const resultNameSpan = document.getElementById('resultName');
-
-    // Función que actualiza el resultado automáticamente
     function updateResult() {
         let day = parseInt(dayInput.value);
         let month = parseInt(monthInput.value);
         let year = parseInt(yearInput.value);
         
-        // Validar que los campos sean números válidos
         if (isNaN(day) || isNaN(month) || isNaN(year)) {
             resultNumberSpan.textContent = "—";
             resultNameSpan.textContent = "Introduce tu fecha completa";
+            audioContainer.classList.remove('show');
             return;
         }
         
-        // Validaciones básicas
         if (day < 1 || day > 31) {
             resultNumberSpan.textContent = "?";
             resultNameSpan.textContent = "Día inválido (1-31)";
+            audioContainer.classList.remove('show');
             return;
         }
         
         if (month < 1 || month > 12) {
             resultNumberSpan.textContent = "?";
             resultNameSpan.textContent = "Mes inválido (1-12)";
+            audioContainer.classList.remove('show');
             return;
         }
         
         if (year < 1000 || year > 2100) {
             resultNumberSpan.textContent = "?";
             resultNameSpan.textContent = "Año inválido (1000-2100)";
+            audioContainer.classList.remove('show');
             return;
         }
         
-        // Validación de días por mes (básica)
         const daysInMonth = new Date(year, month, 0).getDate();
         if (day > daysInMonth) {
             resultNumberSpan.textContent = "?";
             resultNameSpan.textContent = `El mes ${month} solo tiene ${daysInMonth} días`;
+            audioContainer.classList.remove('show');
             return;
         }
         
-        // Calcular número de vida
         const lifeNumber = calculateLifePath(day, month, year);
         
-        // Mostrar resultado
         resultNumberSpan.textContent = lifeNumber;
         resultNameSpan.textContent = numberNames[lifeNumber] || "Destino único";
+        
+        if (audioLinks[lifeNumber]) {
+            const soundcloudUrl = audioLinks[lifeNumber];
+            playerFrame.innerHTML = `<iframe width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudUrl)}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
+            audioContainer.classList.add('show');
+        } else {
+            audioContainer.classList.remove('show');
+        }
     }
 
-    // Añadir eventos a los campos
     dayInput.addEventListener('input', updateResult);
     monthInput.addEventListener('input', updateResult);
     yearInput.addEventListener('input', updateResult);
 
-    // Limitar a solo números
-    function onlyNumbers(input) {
-        input.value = input.value.replace(/[^0-9]/g, '');
-    }
-    
     dayInput.addEventListener('input', () => onlyNumbers(dayInput));
     monthInput.addEventListener('input', () => onlyNumbers(monthInput));
     yearInput.addEventListener('input', () => onlyNumbers(yearInput));
     
-    // Avanzar al siguiente campo automáticamente
     dayInput.addEventListener('input', function() {
         if (this.value.length === 2) monthInput.focus();
     });
