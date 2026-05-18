@@ -258,7 +258,6 @@
 </div>
 
 <script>
-    // ENLACES DE SOUNDCLOUD PARA LOS 9 NÚMEROS INDIVIDUALES
     const audioLinks = {
         1: "https://soundcloud.com/jaume-674558592/1x-1",
         2: "https://soundcloud.com/jaume-674558592/2x-2",
