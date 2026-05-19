@@ -67,7 +67,6 @@
             font-style: italic;
         }
 
-        /* Selector de tipo */
         .selector {
             display: flex;
             gap: 20px;
@@ -91,7 +90,6 @@
             accent-color: #d4af37;
         }
 
-        /* Campos de fecha */
         .date-fields {
             display: flex;
             gap: 15px;
@@ -144,11 +142,7 @@
         }
 
         .pair-fields.show {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
+            display: block;
         }
 
         .result-container {
@@ -244,11 +238,6 @@
             border-radius: 12px;
             border: none;
         }
-
-        hr {
-            border-color: rgba(212,175,55,0.3);
-            margin: 15px 0;
-        }
     </style>
 </head>
 <body>
@@ -261,7 +250,6 @@
     <h1>✦ TUDESTINO ✦</h1>
     <div class="subtitle">¿Qué número de vida eres?</div>
 
-    <!-- Selector Individual / Pareja -->
     <div class="selector">
         <label>
             <input type="radio" name="tipo" value="individual" checked> 👤 Individual
@@ -271,7 +259,6 @@
         </label>
     </div>
 
-    <!-- Campos para Individual (1 fecha) -->
     <div id="individualFields" class="date-fields">
         <div class="date-field">
             <label>DÍA</label>
@@ -287,7 +274,6 @@
         </div>
     </div>
 
-    <!-- Campos para Pareja (2 fechas) -->
     <div id="pairFields" class="pair-fields">
         <div class="date-fields">
             <div class="date-field">
@@ -343,7 +329,6 @@
 </div>
 
 <script>
-    // ENLACES DE SOUNDCLOUD INDIVIDUALES
     const audioLinksIndividual = {
         1: "https://soundcloud.com/jaume-674558592/1x-1",
         2: "https://soundcloud.com/jaume-674558592/2x-2",
@@ -356,7 +341,6 @@
         9: "https://soundcloud.com/jaume-674558592/9x-9"
     };
 
-    // ENLACES DE SOUNDCLOUD PAREJA
     const audioLinksPareja = {
         1: "https://soundcloud.com/jaume-674558592/p-1-1",
         2: "https://soundcloud.com/jaume-674558592/p-2-2",
@@ -393,7 +377,6 @@
         9: "Aprendéis a soltar el pasado juntos"
     };
 
-    // Elementos DOM
     const radioIndividual = document.querySelector('input[value="individual"]');
     const radioPareja = document.querySelector('input[value="pareja"]');
     const individualFields = document.getElementById('individualFields');
@@ -406,12 +389,9 @@
     const audioTitle = document.getElementById('audioTitle');
     const buyLink = document.getElementById('buyLink');
 
-    // Inputs individuales
     const dayInput = document.getElementById('day');
     const monthInput = document.getElementById('month');
     const yearInput = document.getElementById('year');
-
-    // Inputs pareja
     const day1Input = document.getElementById('day1');
     const month1Input = document.getElementById('month1');
     const year1Input = document.getElementById('year1');
@@ -419,10 +399,8 @@
     const month2Input = document.getElementById('month2');
     const year2Input = document.getElementById('year2');
 
-    // Variables de estado
     let currentType = 'individual';
 
-    // Funciones de cálculo
     function reduceToMaster(number) {
         if (number === 11 || number === 22 || number === 33) return number;
         while (number > 9) {
@@ -438,9 +416,7 @@
         let reducedMonth = reduceToMaster(month);
         let reducedYear = reduceToMaster(year);
         let sum = reducedDay + reducedMonth + reducedYear;
-        let finalNumber = reduceToMaster(sum);
-        if (finalNumber > 9) finalNumber = reduceToMaster(finalNumber);
-        return finalNumber;
+        return reduceToMaster(sum);
     }
 
     function onlyNumbers(input) {
@@ -452,8 +428,7 @@
         if (month < 1 || month > 12) return false;
         if (year < 1000 || year > 2100) return false;
         const daysInMonth = new Date(year, month, 0).getDate();
-        if (day > daysInMonth) return false;
-        return true;
+        return day <= daysInMonth;
     }
 
     function updateResult() {
@@ -482,16 +457,14 @@
             resultLabel.textContent = "TU NÚMERO DE VIDA ES";
 
             if (audioLinksIndividual[lifeNumber]) {
-                const soundcloudUrl = audioLinksIndividual[lifeNumber];
-                playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudUrl)}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
+                playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(audioLinksIndividual[lifeNumber])}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
                 audioContainer.classList.add('show');
                 audioTitle.textContent = "🔮 ESCUCHA TU AUDIO 🔮";
                 buyLink.style.display = "none";
             } else {
                 audioContainer.classList.remove('show');
             }
-        } 
-        else {
+        } else {
             let day1 = parseInt(day1Input.value);
             let month1 = parseInt(month1Input.value);
             let year1 = parseInt(year1Input.value);
@@ -522,44 +495,37 @@
             resultLabel.textContent = "VUESTRA SUMA ES";
 
             if (audioLinksPareja[pairNumber]) {
-                const soundcloudUrl = audioLinksPareja[pairNumber];
-                playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudUrl)}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
+                playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(audioLinksPareja[pairNumber])}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
                 audioContainer.classList.add('show');
                 audioTitle.textContent = "🔮 ESCUCHA VUESTRO AUDIO (muestra de 30 segundos) 🔮";
                 buyLink.style.display = "block";
-                buyLink.href = "#"; // Aquí pondrás tu enlace de Gumroad para la versión completa
+                buyLink.href = "https://jaumeru.gumroad.com/l/tudestino-pareja";
             } else {
                 audioContainer.classList.remove('show');
             }
         }
     }
 
-    // Cambio entre individual y pareja
-    radioIndividual.addEventListener('change', function() {
-        if (this.checked) {
-            currentType = 'individual';
-            individualFields.style.display = 'flex';
-            pairFields.classList.remove('show');
-            resultNameSpan.textContent = "Introduce tu fecha";
-            resultNumberSpan.textContent = "—";
-            resultLabel.textContent = "TU NÚMERO DE VIDA ES";
-            audioContainer.classList.remove('show');
-        }
+    radioIndividual.addEventListener('change', () => {
+        currentType = 'individual';
+        individualFields.style.display = 'flex';
+        pairFields.classList.remove('show');
+        resultNameSpan.textContent = "Introduce tu fecha";
+        resultNumberSpan.textContent = "—";
+        resultLabel.textContent = "TU NÚMERO DE VIDA ES";
+        audioContainer.classList.remove('show');
     });
 
-    radioPareja.addEventListener('change', function() {
-        if (this.checked) {
-            currentType = 'pareja';
-            individualFields.style.display = 'none';
-            pairFields.classList.add('show');
-            resultNameSpan.textContent = "Introduce ambas fechas";
-            resultNumberSpan.textContent = "—";
-            resultLabel.textContent = "VUESTRA SUMA ES";
-            audioContainer.classList.remove('show');
-        }
+    radioPareja.addEventListener('change', () => {
+        currentType = 'pareja';
+        individualFields.style.display = 'none';
+        pairFields.classList.add('show');
+        resultNameSpan.textContent = "Introduce ambas fechas";
+        resultNumberSpan.textContent = "—";
+        resultLabel.textContent = "VUESTRA SUMA ES";
+        audioContainer.classList.remove('show');
     });
 
-    // Eventos
     dayInput.addEventListener('input', updateResult);
     monthInput.addEventListener('input', updateResult);
     yearInput.addEventListener('input', updateResult);
@@ -570,7 +536,6 @@
     month2Input.addEventListener('input', updateResult);
     year2Input.addEventListener('input', updateResult);
 
-    // Solo números
     dayInput.addEventListener('input', () => onlyNumbers(dayInput));
     monthInput.addEventListener('input', () => onlyNumbers(monthInput));
     yearInput.addEventListener('input', () => onlyNumbers(yearInput));
@@ -581,7 +546,6 @@
     month2Input.addEventListener('input', () => onlyNumbers(month2Input));
     year2Input.addEventListener('input', () => onlyNumbers(year2Input));
 
-    // Avanzar automáticamente
     dayInput.addEventListener('input', function() { if (this.value.length === 2) monthInput.focus(); });
     monthInput.addEventListener('input', function() { if (this.value.length === 2) yearInput.focus(); });
     day1Input.addEventListener('input', function() { if (this.value.length === 2) month1Input.focus(); });
