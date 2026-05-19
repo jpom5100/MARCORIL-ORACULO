@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: linear-gradient(135deg, #0a0f1e 0%, #0d1a2a 100%);
             font-family: 'Georgia', 'Times New Roman', serif;
@@ -20,7 +19,6 @@
             align-items: center;
             padding: 20px;
         }
-
         .container {
             max-width: 700px;
             width: 100%;
@@ -31,12 +29,6 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.2);
             border: 1px solid rgba(212,175,55,0.3);
         }
-
-        .druid-image {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
         .druid-placeholder {
             width: 100px;
             height: 100px;
@@ -49,16 +41,13 @@
             border: 2px solid #d4af37;
             font-size: 50px;
         }
-
         h1 {
             text-align: center;
             color: #d4af37;
             font-size: 28px;
             letter-spacing: 3px;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(212,175,55,0.3);
         }
-
         .subtitle {
             text-align: center;
             color: #aac8e0;
@@ -66,14 +55,12 @@
             margin-bottom: 25px;
             font-style: italic;
         }
-
         .selector {
             display: flex;
             gap: 20px;
             justify-content: center;
             margin-bottom: 30px;
         }
-
         .selector label {
             color: #d4af37;
             font-size: 18px;
@@ -82,14 +69,12 @@
             align-items: center;
             gap: 8px;
         }
-
         .selector input {
             width: 18px;
             height: 18px;
             cursor: pointer;
             accent-color: #d4af37;
         }
-
         .date-fields {
             display: flex;
             gap: 15px;
@@ -97,21 +82,17 @@
             margin-bottom: 30px;
             flex-wrap: wrap;
         }
-
         .date-field {
             flex: 1;
             min-width: 80px;
             text-align: center;
         }
-
         .date-field label {
             display: block;
             color: #d4af37;
             font-size: 12px;
             margin-bottom: 5px;
-            letter-spacing: 1px;
         }
-
         .date-field input {
             width: 100%;
             padding: 12px 10px;
@@ -123,58 +104,35 @@
             color: white;
             font-family: monospace;
             font-weight: bold;
-            transition: all 0.3s;
         }
-
-        .date-field input:focus {
-            outline: none;
-            box-shadow: 0 0 15px rgba(212,175,55,0.5);
-            border-color: #ffd700;
-        }
-
-        .date-field input::placeholder {
-            color: #4a6075;
-            font-size: 12px;
-        }
-
         .pair-fields {
             display: none;
         }
-
         .pair-fields.show {
             display: block;
         }
-
         .result-container {
             text-align: center;
             padding: 20px;
             background: rgba(0,0,0,0.4);
             border-radius: 20px;
             margin-bottom: 25px;
-            border: 1px solid rgba(212,175,55,0.3);
         }
-
         .result-label {
             color: #aac8e0;
             font-size: 12px;
             letter-spacing: 2px;
-            margin-bottom: 8px;
         }
-
         .result-number {
             font-size: 56px;
             font-weight: bold;
             color: #d4af37;
-            text-shadow: 0 0 20px rgba(212,175,55,0.5);
-            line-height: 1;
         }
-
         .result-name {
             font-size: 16px;
             color: white;
             margin-top: 8px;
         }
-
         .audio-container {
             margin-top: 20px;
             padding: 15px;
@@ -182,18 +140,15 @@
             border-radius: 15px;
             display: none;
         }
-
         .audio-container.show {
             display: block;
         }
-
         .audio-title {
             color: #d4af37;
             font-size: 14px;
             margin-bottom: 10px;
             text-align: center;
         }
-
         .buy-button {
             display: block;
             width: 100%;
@@ -205,103 +160,57 @@
             font-weight: bold;
             text-decoration: none;
             border-radius: 50px;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-family: 'Georgia', serif;
-            letter-spacing: 1px;
             margin-top: 20px;
         }
-
-        .buy-button:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
-        }
-
         .info-text {
             text-align: center;
             color: #6a8aaa;
             font-size: 11px;
             margin-top: 15px;
         }
-
-        .note {
-            font-size: 10px;
-            color: #4a6075;
-            text-align: center;
-            margin-top: 10px;
-        }
-
         iframe {
             width: 100%;
             height: 100px;
             border-radius: 12px;
             border: none;
         }
+        .limit-message {
+            text-align: center;
+            color: #d4af37;
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="druid-image">
-        <div class="druid-placeholder">🧙‍♂️</div>
-    </div>
-
+    <div class="druid-placeholder">🧙‍♂️</div>
     <h1>✦ TUDESTINO ✦</h1>
     <div class="subtitle">¿Qué número de vida eres?</div>
 
     <div class="selector">
-        <label>
-            <input type="radio" name="tipo" value="individual" checked> 👤 Individual
-        </label>
-        <label>
-            <input type="radio" name="tipo" value="pareja"> 💑 Pareja
-        </label>
+        <label><input type="radio" name="tipo" value="individual" checked> 👤 Individual</label>
+        <label><input type="radio" name="tipo" value="pareja"> 💑 Pareja</label>
     </div>
 
     <div id="individualFields" class="date-fields">
-        <div class="date-field">
-            <label>DÍA</label>
-            <input type="text" id="day" placeholder="DD" maxlength="2" inputmode="numeric">
-        </div>
-        <div class="date-field">
-            <label>MES</label>
-            <input type="text" id="month" placeholder="MM" maxlength="2" inputmode="numeric">
-        </div>
-        <div class="date-field">
-            <label>AÑO</label>
-            <input type="text" id="year" placeholder="YYYY" maxlength="4" inputmode="numeric">
-        </div>
+        <div class="date-field"><label>DÍA</label><input type="text" id="day" placeholder="DD" maxlength="2"></div>
+        <div class="date-field"><label>MES</label><input type="text" id="month" placeholder="MM" maxlength="2"></div>
+        <div class="date-field"><label>AÑO</label><input type="text" id="year" placeholder="YYYY" maxlength="4"></div>
     </div>
 
     <div id="pairFields" class="pair-fields">
         <div class="date-fields">
-            <div class="date-field">
-                <label>DÍA (Tú)</label>
-                <input type="text" id="day1" placeholder="DD" maxlength="2" inputmode="numeric">
-            </div>
-            <div class="date-field">
-                <label>MES (Tú)</label>
-                <input type="text" id="month1" placeholder="MM" maxlength="2" inputmode="numeric">
-            </div>
-            <div class="date-field">
-                <label>AÑO (Tú)</label>
-                <input type="text" id="year1" placeholder="YYYY" maxlength="4" inputmode="numeric">
-            </div>
+            <div class="date-field"><label>DÍA (Tú)</label><input type="text" id="day1" placeholder="DD" maxlength="2"></div>
+            <div class="date-field"><label>MES (Tú)</label><input type="text" id="month1" placeholder="MM" maxlength="2"></div>
+            <div class="date-field"><label>AÑO (Tú)</label><input type="text" id="year1" placeholder="YYYY" maxlength="4"></div>
         </div>
         <div class="date-fields">
-            <div class="date-field">
-                <label>DÍA (Pareja)</label>
-                <input type="text" id="day2" placeholder="DD" maxlength="2" inputmode="numeric">
-            </div>
-            <div class="date-field">
-                <label>MES (Pareja)</label>
-                <input type="text" id="month2" placeholder="MM" maxlength="2" inputmode="numeric">
-            </div>
-            <div class="date-field">
-                <label>AÑO (Pareja)</label>
-                <input type="text" id="year2" placeholder="YYYY" maxlength="4" inputmode="numeric">
-            </div>
+            <div class="date-field"><label>DÍA (Pareja)</label><input type="text" id="day2" placeholder="DD" maxlength="2"></div>
+            <div class="date-field"><label>MES (Pareja)</label><input type="text" id="month2" placeholder="MM" maxlength="2"></div>
+            <div class="date-field"><label>AÑO (Pareja)</label><input type="text" id="year2" placeholder="YYYY" maxlength="4"></div>
         </div>
     </div>
 
@@ -312,23 +221,20 @@
     </div>
 
     <div id="audioContainer" class="audio-container">
-        <div class="audio-title" id="audioTitle">🔮 ESCUCHA TU AUDIO 🔮</div>
+        <div class="audio-title" id="audioTitle">🔮 AUDIO COMPLETO 🔮</div>
         <div id="playerFrame"></div>
+        <div id="limitMessage" class="limit-message"></div>
     </div>
 
     <a href="#" id="buyLink" class="buy-button" target="_blank">
-        🔮 COMPRA VERSIÓN COMPLETA 🔮
+        🔮 COMPRAR AUDIO COMPLETO POR 2€ 🔮
     </a>
     
-    <div class="info-text">
-        Tu número se calcula automáticamente al escribir tu fecha completa
-    </div>
-    <div class="note">
-        Números maestros 11, 22, 33 se conservan
-    </div>
+    <div class="info-text">Tu número se calcula automáticamente</div>
 </div>
 
 <script>
+    // ENLACES DE SOUNDCLOUD
     const audioLinksIndividual = {
         1: "https://soundcloud.com/jaume-674558592/1x-1",
         2: "https://soundcloud.com/jaume-674558592/2x-2",
@@ -340,7 +246,6 @@
         8: "https://soundcloud.com/jaume-674558592/8x-8",
         9: "https://soundcloud.com/jaume-674558592/9x-9"
     };
-
     const audioLinksPareja = {
         1: "https://soundcloud.com/jaume-674558592/p-1-1",
         2: "https://soundcloud.com/jaume-674558592/p-2-2",
@@ -353,29 +258,22 @@
         9: "https://soundcloud.com/jaume-674558592/p-9-9"
     };
 
-    const numberNames = {
-        1: "El Iniciador",
-        2: "El Conciliador",
-        3: "El Comunicador",
-        4: "El Constructor",
-        5: "El Aventurero",
-        6: "El Cuidador",
-        7: "El Buscador",
-        8: "El Realizador",
-        9: "El Humanitario"
-    };
+    const numberNames = {1:"El Iniciador",2:"El Conciliador",3:"El Comunicador",4:"El Constructor",5:"El Aventurero",6:"El Cuidador",7:"El Buscador",8:"El Realizador",9:"El Humanitario"};
+    const pairNames = {1:"Aprendéis a liderar sin competir",2:"Aprendéis a comunicar sin heriros",3:"Aprendéis a divertiros sin evitar los problemas",4:"Aprendéis a construir sin odiar la rutina",5:"Aprendéis a daros libertad sin perder el vínculo",6:"Aprendéis a cuidaros sin agobiaros",7:"Aprendéis a respetar el silencio del otro",8:"Aprendéis a gestionar el dinero sin peleas",9:"Aprendéis a soltar el pasado juntos"};
 
-    const pairNames = {
-        1: "Aprendéis a liderar sin competir",
-        2: "Aprendéis a comunicar sin heriros",
-        3: "Aprendéis a divertiros sin evitar los problemas",
-        4: "Aprendéis a construir sin odiar la rutina",
-        5: "Aprendéis a daros libertad sin perder el vínculo",
-        6: "Aprendéis a cuidaros sin agobiaros",
-        7: "Aprendéis a respetar el silencio del otro",
-        8: "Aprendéis a gestionar el dinero sin peleas",
-        9: "Aprendéis a soltar el pasado juntos"
-    };
+    // ========== CAMBIA AQUÍ TUS ENLACES DE GUMROAD ==========
+    const GUMROAD_INDIVIDUAL = "https://jaumeru.gumroad.com/l/individual";
+    const GUMROAD_PAREJA = "https://jaumeru.gumroad.com/l/pareja";
+    // =========================================================
+
+    // Detectar si vienes de un pago (parámetro pagado=1 en la URL)
+    const urlParams = new URLSearchParams(window.location.search);
+    const isPaid = urlParams.get('pagado') === '1';
+
+    // Clave para localStorage según el tipo de audio
+    let currentAudioKey = null;
+    let currentAudioUrl = null;
+    let currentTypeResult = 'individual';
 
     const radioIndividual = document.querySelector('input[value="individual"]');
     const radioPareja = document.querySelector('input[value="pareja"]');
@@ -388,6 +286,7 @@
     const playerFrame = document.getElementById('playerFrame');
     const audioTitle = document.getElementById('audioTitle');
     const buyLink = document.getElementById('buyLink');
+    const limitMessageDiv = document.getElementById('limitMessage');
 
     const dayInput = document.getElementById('day');
     const monthInput = document.getElementById('month');
@@ -400,159 +299,126 @@
     const year2Input = document.getElementById('year2');
 
     let currentType = 'individual';
+    let currentNumber = null;
 
-    function reduceToMaster(number) {
-        if (number === 11 || number === 22 || number === 33) return number;
-        while (number > 9) {
-            let sum = 0;
-            number.toString().split('').forEach(d => sum += parseInt(d));
-            number = sum;
+    function reduceToMaster(n) { if (n===11||n===22||n===33) return n; while(n>9){let s=0; n.toString().split('').forEach(d=>s+=parseInt(d)); n=s;} return n; }
+    function calculateLifeNumber(d,m,y){ let rd=reduceToMaster(d), rm=reduceToMaster(m), ry=reduceToMaster(y); return reduceToMaster(rd+rm+ry); }
+    function onlyNumbers(input) { input.value = input.value.replace(/[^0-9]/g, ''); }
+    function validateDate(d,m,y){ if(d<1||d>31||m<1||m>12||y<1000||y>2100) return false; const dim=new Date(y,m,0).getDate(); return d<=dim; }
+
+    function getPlayCount(key) { return parseInt(localStorage.getItem(key) || '0'); }
+    function incrementPlayCount(key) { localStorage.setItem(key, getPlayCount(key) + 1); }
+    function canPlay(key) { return getPlayCount(key) < 3; }
+    function getRemainingPlays(key) { return 3 - getPlayCount(key); }
+
+    function updateBuyButton() {
+        if (currentType === 'individual') {
+            buyLink.href = GUMROAD_INDIVIDUAL;
+            buyLink.style.display = 'block';
+            currentAudioKey = `playcount_individual_${currentNumber}`;
+            if (audioLinksIndividual[currentNumber]) currentAudioUrl = audioLinksIndividual[currentNumber];
+        } else {
+            buyLink.href = GUMROAD_PAREJA;
+            buyLink.style.display = 'block';
+            currentAudioKey = `playcount_pareja_${currentNumber}`;
+            if (audioLinksPareja[currentNumber]) currentAudioUrl = audioLinksPareja[currentNumber];
         }
-        return number;
+        // Si ya pagó, mostrar el reproductor
+        if (isPaid && currentAudioUrl) {
+            showAudioPlayer();
+        } else {
+            audioContainer.classList.remove('show');
+        }
     }
 
-    function calculateLifeNumber(day, month, year) {
-        let reducedDay = reduceToMaster(day);
-        let reducedMonth = reduceToMaster(month);
-        let reducedYear = reduceToMaster(year);
-        let sum = reducedDay + reducedMonth + reducedYear;
-        return reduceToMaster(sum);
-    }
-
-    function onlyNumbers(input) {
-        input.value = input.value.replace(/[^0-9]/g, '');
-    }
-
-    function validateDate(day, month, year) {
-        if (day < 1 || day > 31) return false;
-        if (month < 1 || month > 12) return false;
-        if (year < 1000 || year > 2100) return false;
-        const daysInMonth = new Date(year, month, 0).getDate();
-        return day <= daysInMonth;
+    function showAudioPlayer() {
+        if (!currentAudioUrl) return;
+        if (!canPlay(currentAudioKey)) {
+            playerFrame.innerHTML = '';
+            limitMessageDiv.textContent = `❌ Has alcanzado el límite de 3 reproducciones. ❌`;
+            audioContainer.classList.add('show');
+            return;
+        }
+        limitMessageDiv.textContent = `🎧 Te quedan ${getRemainingPlays(currentAudioKey)} reproducciones de 3. 🎧`;
+        playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(currentAudioUrl)}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
+        audioContainer.classList.add('show');
+        
+        // Detectar reproducción para contar
+        const iframe = playerFrame.querySelector('iframe');
+        if (iframe) {
+            // Limpiar event listener anterior
+            if (window.playCountListener) window.removeEventListener('message', window.playCountListener);
+            window.playCountListener = function(event) {
+                if (event.data && typeof event.data === 'string') {
+                    if (event.data.includes('play')) {
+                        if (canPlay(currentAudioKey)) {
+                            incrementPlayCount(currentAudioKey);
+                            limitMessageDiv.textContent = `🎧 Te quedan ${getRemainingPlays(currentAudioKey)} reproducciones de 3. 🎧`;
+                            if (!canPlay(currentAudioKey)) {
+                                playerFrame.innerHTML = '';
+                                limitMessageDiv.textContent = `❌ Has alcanzado el límite de 3 reproducciones. ❌`;
+                            }
+                        } else {
+                            playerFrame.innerHTML = '';
+                            limitMessageDiv.textContent = `❌ Has alcanzado el límite de 3 reproducciones. ❌`;
+                        }
+                        window.removeEventListener('message', window.playCountListener);
+                    }
+                }
+            };
+            window.addEventListener('message', window.playCountListener);
+        }
     }
 
     function updateResult() {
         if (currentType === 'individual') {
-            let day = parseInt(dayInput.value);
-            let month = parseInt(monthInput.value);
-            let year = parseInt(yearInput.value);
-
-            if (isNaN(day) || isNaN(month) || isNaN(year)) {
-                resultNumberSpan.textContent = "—";
-                resultNameSpan.textContent = "Introduce tu fecha";
-                audioContainer.classList.remove('show');
-                return;
-            }
-
-            if (!validateDate(day, month, year)) {
-                resultNumberSpan.textContent = "?";
-                resultNameSpan.textContent = "Fecha inválida";
-                audioContainer.classList.remove('show');
-                return;
-            }
-
-            const lifeNumber = calculateLifeNumber(day, month, year);
+            let d=parseInt(dayInput.value), m=parseInt(monthInput.value), y=parseInt(yearInput.value);
+            if (isNaN(d)||isNaN(m)||isNaN(y)) { resultNumberSpan.textContent="—"; resultNameSpan.textContent="Introduce tu fecha"; audioContainer.classList.remove('show'); return; }
+            if (!validateDate(d,m,y)) { resultNumberSpan.textContent="?"; resultNameSpan.textContent="Fecha inválida"; audioContainer.classList.remove('show'); return; }
+            let lifeNumber = calculateLifeNumber(d,m,y);
+            currentNumber = lifeNumber;
             resultNumberSpan.textContent = lifeNumber;
             resultNameSpan.textContent = numberNames[lifeNumber] || "Destino único";
             resultLabel.textContent = "TU NÚMERO DE VIDA ES";
-
-            if (audioLinksIndividual[lifeNumber]) {
-                playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(audioLinksIndividual[lifeNumber])}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
-                audioContainer.classList.add('show');
-                audioTitle.textContent = "🔮 ESCUCHA TU AUDIO 🔮";
-                buyLink.style.display = "none";
-            } else {
-                audioContainer.classList.remove('show');
-            }
         } else {
-            let day1 = parseInt(day1Input.value);
-            let month1 = parseInt(month1Input.value);
-            let year1 = parseInt(year1Input.value);
-            let day2 = parseInt(day2Input.value);
-            let month2 = parseInt(month2Input.value);
-            let year2 = parseInt(year2Input.value);
-
-            if (isNaN(day1) || isNaN(month1) || isNaN(year1) || isNaN(day2) || isNaN(month2) || isNaN(year2)) {
-                resultNumberSpan.textContent = "—";
-                resultNameSpan.textContent = "Introduce ambas fechas";
-                audioContainer.classList.remove('show');
-                return;
-            }
-
-            if (!validateDate(day1, month1, year1) || !validateDate(day2, month2, year2)) {
-                resultNumberSpan.textContent = "?";
-                resultNameSpan.textContent = "Fecha inválida";
-                audioContainer.classList.remove('show');
-                return;
-            }
-
-            const number1 = calculateLifeNumber(day1, month1, year1);
-            const number2 = calculateLifeNumber(day2, month2, year2);
-            const pairNumber = reduceToMaster(number1 + number2);
-            
+            let d1=parseInt(day1Input.value), m1=parseInt(month1Input.value), y1=parseInt(year1Input.value);
+            let d2=parseInt(day2Input.value), m2=parseInt(month2Input.value), y2=parseInt(year2Input.value);
+            if (isNaN(d1)||isNaN(m1)||isNaN(y1)||isNaN(d2)||isNaN(m2)||isNaN(y2)) { resultNumberSpan.textContent="—"; resultNameSpan.textContent="Introduce ambas fechas"; audioContainer.classList.remove('show'); return; }
+            if (!validateDate(d1,m1,y1)||!validateDate(d2,m2,y2)) { resultNumberSpan.textContent="?"; resultNameSpan.textContent="Fecha inválida"; audioContainer.classList.remove('show'); return; }
+            let n1=calculateLifeNumber(d1,m1,y1), n2=calculateLifeNumber(d2,m2,y2);
+            let pairNumber = reduceToMaster(n1+n2);
+            currentNumber = pairNumber;
             resultNumberSpan.textContent = pairNumber;
             resultNameSpan.textContent = pairNames[pairNumber] || "Destino único en pareja";
             resultLabel.textContent = "VUESTRA SUMA ES";
-
-            if (audioLinksPareja[pairNumber]) {
-                playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(audioLinksPareja[pairNumber])}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
-                audioContainer.classList.add('show');
-                audioTitle.textContent = "🔮 ESCUCHA VUESTRO AUDIO (muestra de 30 segundos) 🔮";
-                buyLink.style.display = "block";
-                buyLink.href = "https://jaumeru.gumroad.com/l/tudestino-pareja";
-            } else {
-                audioContainer.classList.remove('show');
-            }
         }
+        updateBuyButton();
     }
 
-    radioIndividual.addEventListener('change', () => {
-        currentType = 'individual';
-        individualFields.style.display = 'flex';
-        pairFields.classList.remove('show');
-        resultNameSpan.textContent = "Introduce tu fecha";
-        resultNumberSpan.textContent = "—";
-        resultLabel.textContent = "TU NÚMERO DE VIDA ES";
-        audioContainer.classList.remove('show');
-    });
+    radioIndividual.addEventListener('change',()=>{ currentType='individual'; currentTypeResult='individual'; individualFields.style.display='flex'; pairFields.classList.remove('show'); resultNameSpan.textContent="Introduce tu fecha"; resultNumberSpan.textContent="—"; resultLabel.textContent="TU NÚMERO DE VIDA ES"; audioContainer.classList.remove('show'); updateResult(); });
+    radioPareja.addEventListener('change',()=>{ currentType='pareja'; currentTypeResult='pareja'; individualFields.style.display='none'; pairFields.classList.add('show'); resultNameSpan.textContent="Introduce ambas fechas"; resultNumberSpan.textContent="—"; resultLabel.textContent="VUESTRA SUMA ES"; audioContainer.classList.remove('show'); updateResult(); });
 
-    radioPareja.addEventListener('change', () => {
-        currentType = 'pareja';
-        individualFields.style.display = 'none';
-        pairFields.classList.add('show');
-        resultNameSpan.textContent = "Introduce ambas fechas";
-        resultNumberSpan.textContent = "—";
-        resultLabel.textContent = "VUESTRA SUMA ES";
-        audioContainer.classList.remove('show');
-    });
+    dayInput.addEventListener('input', updateResult); monthInput.addEventListener('input', updateResult); yearInput.addEventListener('input', updateResult);
+    day1Input.addEventListener('input', updateResult); month1Input.addEventListener('input', updateResult); year1Input.addEventListener('input', updateResult);
+    day2Input.addEventListener('input', updateResult); month2Input.addEventListener('input', updateResult); year2Input.addEventListener('input', updateResult);
 
-    dayInput.addEventListener('input', updateResult);
-    monthInput.addEventListener('input', updateResult);
-    yearInput.addEventListener('input', updateResult);
-    day1Input.addEventListener('input', updateResult);
-    month1Input.addEventListener('input', updateResult);
-    year1Input.addEventListener('input', updateResult);
-    day2Input.addEventListener('input', updateResult);
-    month2Input.addEventListener('input', updateResult);
-    year2Input.addEventListener('input', updateResult);
+    dayInput.addEventListener('input',()=>onlyNumbers(dayInput)); monthInput.addEventListener('input',()=>onlyNumbers(monthInput)); yearInput.addEventListener('input',()=>onlyNumbers(yearInput));
+    day1Input.addEventListener('input',()=>onlyNumbers(day1Input)); month1Input.addEventListener('input',()=>onlyNumbers(month1Input)); year1Input.addEventListener('input',()=>onlyNumbers(year1Input));
+    day2Input.addEventListener('input',()=>onlyNumbers(day2Input)); month2Input.addEventListener('input',()=>onlyNumbers(month2Input)); year2Input.addEventListener('input',()=>onlyNumbers(year2Input));
 
-    dayInput.addEventListener('input', () => onlyNumbers(dayInput));
-    monthInput.addEventListener('input', () => onlyNumbers(monthInput));
-    yearInput.addEventListener('input', () => onlyNumbers(yearInput));
-    day1Input.addEventListener('input', () => onlyNumbers(day1Input));
-    month1Input.addEventListener('input', () => onlyNumbers(month1Input));
-    year1Input.addEventListener('input', () => onlyNumbers(year1Input));
-    day2Input.addEventListener('input', () => onlyNumbers(day2Input));
-    month2Input.addEventListener('input', () => onlyNumbers(month2Input));
-    year2Input.addEventListener('input', () => onlyNumbers(year2Input));
+    dayInput.addEventListener('input',function(){if(this.value.length===2) monthInput.focus();});
+    monthInput.addEventListener('input',function(){if(this.value.length===2) yearInput.focus();});
+    day1Input.addEventListener('input',function(){if(this.value.length===2) month1Input.focus();});
+    month1Input.addEventListener('input',function(){if(this.value.length===2) year1Input.focus();});
+    day2Input.addEventListener('input',function(){if(this.value.length===2) month2Input.focus();});
+    month2Input.addEventListener('input',function(){if(this.value.length===2) year2Input.focus();});
 
-    dayInput.addEventListener('input', function() { if (this.value.length === 2) monthInput.focus(); });
-    monthInput.addEventListener('input', function() { if (this.value.length === 2) yearInput.focus(); });
-    day1Input.addEventListener('input', function() { if (this.value.length === 2) month1Input.focus(); });
-    month1Input.addEventListener('input', function() { if (this.value.length === 2) year1Input.focus(); });
-    day2Input.addEventListener('input', function() { if (this.value.length === 2) month2Input.focus(); });
-    month2Input.addEventListener('input', function() { if (this.value.length === 2) year2Input.focus(); });
+    // Si ya pagó, mostrar el audio
+    if (isPaid) {
+        setTimeout(() => {
+            if (currentAudioUrl) showAudioPlayer();
+        }, 500);
+    }
 </script>
-
 </body>
 </html>
