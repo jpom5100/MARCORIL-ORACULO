@@ -120,8 +120,9 @@
         }
         .result-label {
             color: #aac8e0;
-            font-size: 12px;
+            font-size: 14px;
             letter-spacing: 2px;
+            margin-bottom: 8px;
         }
         .result-number {
             font-size: 56px;
@@ -129,7 +130,7 @@
             color: #d4af37;
         }
         .result-name {
-            font-size: 16px;
+            font-size: 18px;
             color: white;
             margin-top: 8px;
         }
@@ -215,7 +216,7 @@
     </div>
 
     <div class="result-container">
-        <div class="result-label" id="resultLabel">TU NÚMERO DE VIDA ES</div>
+        <div class="result-label" id="resultLabel">TU DESTINO</div>
         <div class="result-number" id="resultNumber">—</div>
         <div class="result-name" id="resultName">Introduce tu fecha</div>
     </div>
@@ -230,7 +231,7 @@
         🔮 COMPRAR AUDIO COMPLETO POR 2€ 🔮
     </a>
     
-    <div class="info-text">Tu número se calcula automáticamente</div>
+    <div class="info-text">Tu número se calcula automáticamente al escribir tu fecha completa</div>
 </div>
 
 <script>
@@ -258,22 +259,40 @@
         9: "https://soundcloud.com/jaume-674558592/p-9-9"
     };
 
-    const numberNames = {1:"El Iniciador",2:"El Conciliador",3:"El Comunicador",4:"El Constructor",5:"El Aventurero",6:"El Cuidador",7:"El Buscador",8:"El Realizador",9:"El Humanitario"};
-    const pairNames = {1:"Aprendéis a liderar sin competir",2:"Aprendéis a comunicar sin heriros",3:"Aprendéis a divertiros sin evitar los problemas",4:"Aprendéis a construir sin odiar la rutina",5:"Aprendéis a daros libertad sin perder el vínculo",6:"Aprendéis a cuidaros sin agobiaros",7:"Aprendéis a respetar el silencio del otro",8:"Aprendéis a gestionar el dinero sin peleas",9:"Aprendéis a soltar el pasado juntos"};
+    const numberNames = {
+        1: "El Iniciador",
+        2: "El Conciliador",
+        3: "El Comunicador",
+        4: "El Constructor",
+        5: "El Aventurero",
+        6: "El Cuidador",
+        7: "El Buscador",
+        8: "El Realizador",
+        9: "El Humanitario"
+    };
+    
+    const pairNames = {
+        1: "Aprendéis a liderar sin competir",
+        2: "Aprendéis a comunicar sin heriros",
+        3: "Aprendéis a divertiros sin evitar los problemas",
+        4: "Aprendéis a construir sin odiar la rutina",
+        5: "Aprendéis a daros libertad sin perder el vínculo",
+        6: "Aprendéis a cuidaros sin agobiaros",
+        7: "Aprendéis a respetar el silencio del otro",
+        8: "Aprendéis a gestionar el dinero sin peleas",
+        9: "Aprendéis a soltar el pasado juntos"
+    };
 
-    // ========== CAMBIA AQUÍ TUS ENLACES DE GUMROAD ==========
-    const GUMROAD_INDIVIDUAL = "https://jaumeru.gumroad.com/l/individual";
-    const GUMROAD_PAREJA = "https://jaumeru.gumroad.com/l/pareja";
-    // =========================================================
+    // ========== ENLACES DE GUMROAD ==========
+    const GUMROAD_INDIVIDUAL = "https://jaumeru.gumroad.com/l/fiekk";
+    const GUMROAD_PAREJA = "https://jaumeru.gumroad.com/l/fiekk";
+    // =========================================
 
-    // Detectar si vienes de un pago (parámetro pagado=1 en la URL)
     const urlParams = new URLSearchParams(window.location.search);
     const isPaid = urlParams.get('pagado') === '1';
 
-    // Clave para localStorage según el tipo de audio
     let currentAudioKey = null;
     let currentAudioUrl = null;
-    let currentTypeResult = 'individual';
 
     const radioIndividual = document.querySelector('input[value="individual"]');
     const radioPareja = document.querySelector('input[value="pareja"]');
@@ -301,29 +320,59 @@
     let currentType = 'individual';
     let currentNumber = null;
 
-    function reduceToMaster(n) { if (n===11||n===22||n===33) return n; while(n>9){let s=0; n.toString().split('').forEach(d=>s+=parseInt(d)); n=s;} return n; }
-    function calculateLifeNumber(d,m,y){ let rd=reduceToMaster(d), rm=reduceToMaster(m), ry=reduceToMaster(y); return reduceToMaster(rd+rm+ry); }
-    function onlyNumbers(input) { input.value = input.value.replace(/[^0-9]/g, ''); }
-    function validateDate(d,m,y){ if(d<1||d>31||m<1||m>12||y<1000||y>2100) return false; const dim=new Date(y,m,0).getDate(); return d<=dim; }
+    function reduceToMaster(n) { 
+        if (n === 11 || n === 22 || n === 33) return n; 
+        while (n > 9) {
+            let s = 0; 
+            n.toString().split('').forEach(d => s += parseInt(d)); 
+            n = s;
+        } 
+        return n; 
+    }
+    
+    function calculateLifeNumber(d, m, y) { 
+        let rd = reduceToMaster(d), rm = reduceToMaster(m), ry = reduceToMaster(y); 
+        return reduceToMaster(rd + rm + ry); 
+    }
+    
+    function onlyNumbers(input) { 
+        input.value = input.value.replace(/[^0-9]/g, ''); 
+    }
+    
+    function validateDate(d, m, y) { 
+        if (d < 1 || d > 31 || m < 1 || m > 12 || y < 1000 || y > 2100) return false; 
+        const dim = new Date(y, m, 0).getDate(); 
+        return d <= dim; 
+    }
 
-    function getPlayCount(key) { return parseInt(localStorage.getItem(key) || '0'); }
-    function incrementPlayCount(key) { localStorage.setItem(key, getPlayCount(key) + 1); }
-    function canPlay(key) { return getPlayCount(key) < 3; }
-    function getRemainingPlays(key) { return 3 - getPlayCount(key); }
+    function getPlayCount(key) { 
+        return parseInt(localStorage.getItem(key) || '0'); 
+    }
+    
+    function incrementPlayCount(key) { 
+        localStorage.setItem(key, getPlayCount(key) + 1); 
+    }
+    
+    function canPlay(key) { 
+        return getPlayCount(key) < 3; 
+    }
+    
+    function getRemainingPlays(key) { 
+        return 3 - getPlayCount(key); 
+    }
 
     function updateBuyButton() {
         if (currentType === 'individual') {
             buyLink.href = GUMROAD_INDIVIDUAL;
-            buyLink.style.display = 'block';
             currentAudioKey = `playcount_individual_${currentNumber}`;
             if (audioLinksIndividual[currentNumber]) currentAudioUrl = audioLinksIndividual[currentNumber];
         } else {
             buyLink.href = GUMROAD_PAREJA;
-            buyLink.style.display = 'block';
             currentAudioKey = `playcount_pareja_${currentNumber}`;
             if (audioLinksPareja[currentNumber]) currentAudioUrl = audioLinksPareja[currentNumber];
         }
-        // Si ya pagó, mostrar el reproductor
+        buyLink.style.display = 'block';
+        
         if (isPaid && currentAudioUrl) {
             showAudioPlayer();
         } else {
@@ -335,7 +384,7 @@
         if (!currentAudioUrl) return;
         if (!canPlay(currentAudioKey)) {
             playerFrame.innerHTML = '';
-            limitMessageDiv.textContent = `❌ Has alcanzado el límite de 3 reproducciones. ❌`;
+            limitMessageDiv.textContent = '❌ Has alcanzado el límite de 3 reproducciones. ❌';
             audioContainer.classList.add('show');
             return;
         }
@@ -343,10 +392,8 @@
         playerFrame.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(currentAudioUrl)}&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe>`;
         audioContainer.classList.add('show');
         
-        // Detectar reproducción para contar
         const iframe = playerFrame.querySelector('iframe');
         if (iframe) {
-            // Limpiar event listener anterior
             if (window.playCountListener) window.removeEventListener('message', window.playCountListener);
             window.playCountListener = function(event) {
                 if (event.data && typeof event.data === 'string') {
@@ -356,11 +403,11 @@
                             limitMessageDiv.textContent = `🎧 Te quedan ${getRemainingPlays(currentAudioKey)} reproducciones de 3. 🎧`;
                             if (!canPlay(currentAudioKey)) {
                                 playerFrame.innerHTML = '';
-                                limitMessageDiv.textContent = `❌ Has alcanzado el límite de 3 reproducciones. ❌`;
+                                limitMessageDiv.textContent = '❌ Has alcanzado el límite de 3 reproducciones. ❌';
                             }
                         } else {
                             playerFrame.innerHTML = '';
-                            limitMessageDiv.textContent = `❌ Has alcanzado el límite de 3 reproducciones. ❌`;
+                            limitMessageDiv.textContent = '❌ Has alcanzado el límite de 3 reproducciones. ❌';
                         }
                         window.removeEventListener('message', window.playCountListener);
                     }
@@ -372,53 +419,99 @@
 
     function updateResult() {
         if (currentType === 'individual') {
-            let d=parseInt(dayInput.value), m=parseInt(monthInput.value), y=parseInt(yearInput.value);
-            if (isNaN(d)||isNaN(m)||isNaN(y)) { resultNumberSpan.textContent="—"; resultNameSpan.textContent="Introduce tu fecha"; audioContainer.classList.remove('show'); return; }
-            if (!validateDate(d,m,y)) { resultNumberSpan.textContent="?"; resultNameSpan.textContent="Fecha inválida"; audioContainer.classList.remove('show'); return; }
-            let lifeNumber = calculateLifeNumber(d,m,y);
+            let d = parseInt(dayInput.value), m = parseInt(monthInput.value), y = parseInt(yearInput.value);
+            if (isNaN(d) || isNaN(m) || isNaN(y)) {
+                resultNumberSpan.textContent = '—';
+                resultNameSpan.textContent = 'Introduce tu fecha';
+                resultLabel.textContent = 'TU DESTINO';
+                audioContainer.classList.remove('show');
+                return;
+            }
+            if (!validateDate(d, m, y)) {
+                resultNumberSpan.textContent = '?';
+                resultNameSpan.textContent = 'Fecha inválida';
+                audioContainer.classList.remove('show');
+                return;
+            }
+            let lifeNumber = calculateLifeNumber(d, m, y);
             currentNumber = lifeNumber;
             resultNumberSpan.textContent = lifeNumber;
-            resultNameSpan.textContent = numberNames[lifeNumber] || "Destino único";
-            resultLabel.textContent = "TU NÚMERO DE VIDA ES";
+            resultNameSpan.textContent = numberNames[lifeNumber] || 'Destino único';
+            resultLabel.textContent = 'TU DESTINO';
         } else {
-            let d1=parseInt(day1Input.value), m1=parseInt(month1Input.value), y1=parseInt(year1Input.value);
-            let d2=parseInt(day2Input.value), m2=parseInt(month2Input.value), y2=parseInt(year2Input.value);
-            if (isNaN(d1)||isNaN(m1)||isNaN(y1)||isNaN(d2)||isNaN(m2)||isNaN(y2)) { resultNumberSpan.textContent="—"; resultNameSpan.textContent="Introduce ambas fechas"; audioContainer.classList.remove('show'); return; }
-            if (!validateDate(d1,m1,y1)||!validateDate(d2,m2,y2)) { resultNumberSpan.textContent="?"; resultNameSpan.textContent="Fecha inválida"; audioContainer.classList.remove('show'); return; }
-            let n1=calculateLifeNumber(d1,m1,y1), n2=calculateLifeNumber(d2,m2,y2);
-            let pairNumber = reduceToMaster(n1+n2);
+            let d1 = parseInt(day1Input.value), m1 = parseInt(month1Input.value), y1 = parseInt(year1Input.value);
+            let d2 = parseInt(day2Input.value), m2 = parseInt(month2Input.value), y2 = parseInt(year2Input.value);
+            if (isNaN(d1) || isNaN(m1) || isNaN(y1) || isNaN(d2) || isNaN(m2) || isNaN(y2)) {
+                resultNumberSpan.textContent = '—';
+                resultNameSpan.textContent = 'Introduce ambas fechas';
+                resultLabel.textContent = 'VUESTRO DESTINO';
+                audioContainer.classList.remove('show');
+                return;
+            }
+            if (!validateDate(d1, m1, y1) || !validateDate(d2, m2, y2)) {
+                resultNumberSpan.textContent = '?';
+                resultNameSpan.textContent = 'Fecha inválida';
+                audioContainer.classList.remove('show');
+                return;
+            }
+            let n1 = calculateLifeNumber(d1, m1, y1), n2 = calculateLifeNumber(d2, m2, y2);
+            let pairNumber = reduceToMaster(n1 + n2);
             currentNumber = pairNumber;
             resultNumberSpan.textContent = pairNumber;
-            resultNameSpan.textContent = pairNames[pairNumber] || "Destino único en pareja";
-            resultLabel.textContent = "VUESTRA SUMA ES";
+            resultNameSpan.textContent = pairNames[pairNumber] || 'Destino único en pareja';
+            resultLabel.textContent = 'VUESTRO DESTINO';
         }
         updateBuyButton();
     }
 
-    radioIndividual.addEventListener('change',()=>{ currentType='individual'; currentTypeResult='individual'; individualFields.style.display='flex'; pairFields.classList.remove('show'); resultNameSpan.textContent="Introduce tu fecha"; resultNumberSpan.textContent="—"; resultLabel.textContent="TU NÚMERO DE VIDA ES"; audioContainer.classList.remove('show'); updateResult(); });
-    radioPareja.addEventListener('change',()=>{ currentType='pareja'; currentTypeResult='pareja'; individualFields.style.display='none'; pairFields.classList.add('show'); resultNameSpan.textContent="Introduce ambas fechas"; resultNumberSpan.textContent="—"; resultLabel.textContent="VUESTRA SUMA ES"; audioContainer.classList.remove('show'); updateResult(); });
+    radioIndividual.addEventListener('change', () => {
+        currentType = 'individual';
+        individualFields.style.display = 'flex';
+        pairFields.classList.remove('show');
+        resultNameSpan.textContent = 'Introduce tu fecha';
+        resultNumberSpan.textContent = '—';
+        resultLabel.textContent = 'TU DESTINO';
+        audioContainer.classList.remove('show');
+        updateResult();
+    });
+    
+    radioPareja.addEventListener('change', () => {
+        currentType = 'pareja';
+        individualFields.style.display = 'none';
+        pairFields.classList.add('show');
+        resultNameSpan.textContent = 'Introduce ambas fechas';
+        resultNumberSpan.textContent = '—';
+        resultLabel.textContent = 'VUESTRO DESTINO';
+        audioContainer.classList.remove('show');
+        updateResult();
+    });
 
-    dayInput.addEventListener('input', updateResult); monthInput.addEventListener('input', updateResult); yearInput.addEventListener('input', updateResult);
-    day1Input.addEventListener('input', updateResult); month1Input.addEventListener('input', updateResult); year1Input.addEventListener('input', updateResult);
-    day2Input.addEventListener('input', updateResult); month2Input.addEventListener('input', updateResult); year2Input.addEventListener('input', updateResult);
+    dayInput.addEventListener('input', updateResult);
+    monthInput.addEventListener('input', updateResult);
+    yearInput.addEventListener('input', updateResult);
+    day1Input.addEventListener('input', updateResult);
+    month1Input.addEventListener('input', updateResult);
+    year1Input.addEventListener('input', updateResult);
+    day2Input.addEventListener('input', updateResult);
+    month2Input.addEventListener('input', updateResult);
+    year2Input.addEventListener('input', updateResult);
 
-    dayInput.addEventListener('input',()=>onlyNumbers(dayInput)); monthInput.addEventListener('input',()=>onlyNumbers(monthInput)); yearInput.addEventListener('input',()=>onlyNumbers(yearInput));
-    day1Input.addEventListener('input',()=>onlyNumbers(day1Input)); month1Input.addEventListener('input',()=>onlyNumbers(month1Input)); year1Input.addEventListener('input',()=>onlyNumbers(year1Input));
-    day2Input.addEventListener('input',()=>onlyNumbers(day2Input)); month2Input.addEventListener('input',()=>onlyNumbers(month2Input)); year2Input.addEventListener('input',()=>onlyNumbers(year2Input));
+    dayInput.addEventListener('input', () => onlyNumbers(dayInput));
+    monthInput.addEventListener('input', () => onlyNumbers(monthInput));
+    yearInput.addEventListener('input', () => onlyNumbers(yearInput));
+    day1Input.addEventListener('input', () => onlyNumbers(day1Input));
+    month1Input.addEventListener('input', () => onlyNumbers(month1Input));
+    year1Input.addEventListener('input', () => onlyNumbers(year1Input));
+    day2Input.addEventListener('input', () => onlyNumbers(day2Input));
+    month2Input.addEventListener('input', () => onlyNumbers(month2Input));
+    year2Input.addEventListener('input', () => onlyNumbers(year2Input));
 
-    dayInput.addEventListener('input',function(){if(this.value.length===2) monthInput.focus();});
-    monthInput.addEventListener('input',function(){if(this.value.length===2) yearInput.focus();});
-    day1Input.addEventListener('input',function(){if(this.value.length===2) month1Input.focus();});
-    month1Input.addEventListener('input',function(){if(this.value.length===2) year1Input.focus();});
-    day2Input.addEventListener('input',function(){if(this.value.length===2) month2Input.focus();});
-    month2Input.addEventListener('input',function(){if(this.value.length===2) year2Input.focus();});
-
-    // Si ya pagó, mostrar el audio
-    if (isPaid) {
-        setTimeout(() => {
-            if (currentAudioUrl) showAudioPlayer();
-        }, 500);
-    }
+    dayInput.addEventListener('input', function() { if (this.value.length === 2) monthInput.focus(); });
+    monthInput.addEventListener('input', function() { if (this.value.length === 2) yearInput.focus(); });
+    day1Input.addEventListener('input', function() { if (this.value.length === 2) month1Input.focus(); });
+    month1Input.addEventListener('input', function() { if (this.value.length === 2) year1Input.focus(); });
+    day2Input.addEventListener('input', function() { if (this.value.length === 2) month2Input.focus(); });
+    month2Input.addEventListener('input', function() { if (this.value.length === 2) year2Input.focus(); });
 </script>
 </body>
 </html>
